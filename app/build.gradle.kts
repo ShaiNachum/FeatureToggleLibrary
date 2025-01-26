@@ -40,4 +40,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation (libs.featuretogglelibrary)
+    //implementation(project(":FeatureToggleLibrary"))
+
+    //glide
+    implementation(libs.glide)
 }

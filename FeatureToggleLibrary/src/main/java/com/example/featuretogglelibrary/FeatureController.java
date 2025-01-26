@@ -1,5 +1,7 @@
 package com.example.featuretogglelibrary;
 
+import com.example.featuretogglelibrary.callbacks.Callback_Features;
+import com.example.featuretogglelibrary.model.Feature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

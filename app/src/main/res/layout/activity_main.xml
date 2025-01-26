@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_IMG_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:src="@drawable/ic_launcher_background"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        />
+
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,4 +1,6 @@
-package com.example.featuretogglelibrary;
+package com.example.featuretogglelibrary.callbacks;
+
+import com.example.featuretogglelibrary.model.Feature;
 
 import java.util.List;
 

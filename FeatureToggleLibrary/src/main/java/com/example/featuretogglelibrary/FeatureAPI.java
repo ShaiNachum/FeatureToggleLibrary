@@ -1,5 +1,7 @@
 package com.example.featuretogglelibrary;
 
+import com.example.featuretogglelibrary.model.Feature;
+
 import java.util.List;
 
 import retrofit2.Call;

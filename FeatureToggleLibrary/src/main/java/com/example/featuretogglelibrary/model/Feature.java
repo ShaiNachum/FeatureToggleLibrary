@@ -1,4 +1,4 @@
-package com.example.featuretogglelibrary;
+package com.example.featuretogglelibrary.model;
 
 public class Feature {
     private String _id;
