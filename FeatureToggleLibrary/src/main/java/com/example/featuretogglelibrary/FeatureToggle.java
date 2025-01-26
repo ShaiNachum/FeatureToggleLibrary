@@ -113,6 +113,27 @@ public class FeatureToggle {
     }
 
 
+    public static void getFeaturesByDate(Context context, String date,
+                                         Callback_Data<List<Feature>> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        featureController.fetchFeaturesByDate(
+                context.getPackageName(),
+                date,
+                new Callback_Features() {
+                    @Override
+                    public void ready(List<Feature> features) {
+                        callback.data(features);
+                    }
+
+                    @Override
+                    public void fail(String message) {
+                        callback.data(null);
+                    }
+                });
+    }
 
 
 }

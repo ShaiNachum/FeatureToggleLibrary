@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Example usage of create featureToggle
-
 //        FeatureToggle.createFeature(
 //                this,
 //                "my_feature",
@@ -44,56 +43,75 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Example usage of get all features
-        FeatureToggle.getAllFeatures(this, new FeatureToggle.Callback_Data<List<Feature>>() {
-            @Override
-            public void data(List<Feature> features) {
-                Log.d("AllFeatureToggle", "Callback received");
-
-                if (features != null) {
-                    Log.d("AllFeatureToggle", "Retrieved " + features.size() + " features");
-
-                    if (features.isEmpty()) {
-                        Log.d("AllFeatureToggle", "Feature list is empty");
-                        return;
-                    }
-
-                    for (Feature feature : features) {
-                        Log.d("AllFeatureToggle", "Feature found:");
-                        Log.d("AllFeatureToggle", "  Name: " + feature.getName());
-                        Log.d("AllFeatureToggle", "  ID: " + feature.get_id());
-                        Log.d("AllFeatureToggle", "  Description: " + feature.getDescription());
-                    }
-                } else {
-                    Log.e("AllFeatureToggle", "Failed to retrieve features - received null");
-                }
-            }
-        });
+//        FeatureToggle.getAllFeatures(this, new FeatureToggle.Callback_Data<List<Feature>>() {
+//            @Override
+//            public void data(List<Feature> features) {
+//                Log.d("AllFeatureToggle", "Callback received");
+//
+//                if (features != null) {
+//                    Log.d("AllFeatureToggle", "Retrieved " + features.size() + " features");
+//
+//                    if (features.isEmpty()) {
+//                        Log.d("AllFeatureToggle", "Feature list is empty");
+//                        return;
+//                    }
+//
+//                    for (Feature feature : features) {
+//                        Log.d("AllFeatureToggle", "Feature found:");
+//                        Log.d("AllFeatureToggle", "  Name: " + feature.getName());
+//                        Log.d("AllFeatureToggle", "  ID: " + feature.get_id());
+//                        Log.d("AllFeatureToggle", "  Description: " + feature.getDescription());
+//                    }
+//                } else {
+//                    Log.e("AllFeatureToggle", "Failed to retrieve features - received null");
+//                }
+//            }
+//        });
         // TODO: fix the # Find active feature toggles in the backend
 
 
         // Example usage of get all features
-        FeatureToggle.getActiveFeatures(this, new FeatureToggle.Callback_Data<List<Feature>>() {
-            @Override
-            public void data(List<Feature> features) {
-                if (features != null) {
-                    Log.d("ActiveFeatureToggle", "Retrieved " + features.size() + " features");
+//        FeatureToggle.getActiveFeatures(this, new FeatureToggle.Callback_Data<List<Feature>>() {
+//            @Override
+//            public void data(List<Feature> features) {
+//                if (features != null) {
+//                    Log.d("ActiveFeatureToggle", "Retrieved " + features.size() + " features");
+//
+//                    if (features.isEmpty()) {
+//                        Log.d("ActiveFeatureToggle", "Feature list is empty");
+//                        return;
+//                    }
+//
+//                    for (Feature feature : features) {
+//                        Log.d("ActiveFeatureToggle", "Feature found:");
+//                        Log.d("ActiveFeatureToggle", "  Name: " + feature.getName());
+//                        Log.d("ActiveFeatureToggle", "  ID: " + feature.get_id());
+//                        Log.d("ActiveFeatureToggle", "  Description: " + feature.getDescription());
+//                    }
+//                } else {
+//                    Log.e("ActiveFeatureToggle", "Failed to retrieve features - received null");
+//                }
+//            }
+//        });
 
-                    if (features.isEmpty()) {
-                        Log.d("ActiveFeatureToggle", "Feature list is empty");
-                        return;
-                    }
 
-                    for (Feature feature : features) {
-                        Log.d("ActiveFeatureToggle", "Feature found:");
-                        Log.d("ActiveFeatureToggle", "  Name: " + feature.getName());
-                        Log.d("ActiveFeatureToggle", "  ID: " + feature.get_id());
-                        Log.d("ActiveFeatureToggle", "  Description: " + feature.getDescription());
-                    }
-                } else {
-                    Log.e("ActiveFeatureToggle", "Failed to retrieve features - received null");
-                }
-            }
-        });
+        // Example usage of getting a feature by ID
+//        FeatureToggle.getFeatureById(this, "28f74d26-5c0a-44a1-a31c-98e4990b0b18", new FeatureToggle.Callback_Data<Feature>() {
+//            @Override
+//            public void data(Feature feature) {
+//                if (feature != null) {
+//                    // Successfully retrieved the feature
+//                    Log.d("FeatureToggle", "Found feature: " + feature.getName());
+//                    Log.d("FeatureToggle", "Description: " + feature.getDescription());
+//                    Log.d("FeatureToggle", "Start date: " + feature.getBeginning_date());
+//                    Log.d("FeatureToggle", "End date: " + feature.getExpiration_date());
+//
+//                } else {
+//                    // Handle error case
+//                    Log.e("FeatureToggle", "Failed to retrieve feature");
+//                }
+//            }
+//        });
 
 
     }

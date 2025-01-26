@@ -126,5 +126,27 @@ public class FeatureController {
     }
 
 
+    public void fetchFeaturesByDate(String packageName, String date, Callback_Features callbackFeatures) {
+        setCallbackFeatures(callbackFeatures);
+
+        // Format validation before making the API call
+        try {
+            // Validate date format (YYYY-MM-DD)
+            if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                callbackFeatures.fail("Invalid date format. Please use YYYY-MM-DD");
+                return;
+            }
+
+            Call<List<Feature>> call = getAPI().getFeaturesByDate(packageName, date);
+
+            // We can reuse our existing listCallback since the response structure is the same
+            call.enqueue(listCallback);
+
+        } catch (Exception e) {
+            callbackFeatures.fail("Error processing date: " + e.getMessage());
+        }
+    }
+
+
 
 }

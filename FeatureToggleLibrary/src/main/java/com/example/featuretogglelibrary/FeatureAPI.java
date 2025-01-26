@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface FeatureAPI {
 
@@ -38,6 +39,14 @@ public interface FeatureAPI {
     @GET("/feature-toggles/{package_name}/active")
     Call<List<Feature>> loadActiveFeatures(
             @Path(value = "package_name", encoded = true) String package_name
+    );
+
+
+    // endpoint for getting all features for a package by date
+    @GET("/feature-toggles/{package_name}/by-date")
+    Call<List<Feature>> getFeaturesByDate(
+            @Path(value = "package_name", encoded = true) String package_name,
+            @Query("date") String date
     );
 
 
