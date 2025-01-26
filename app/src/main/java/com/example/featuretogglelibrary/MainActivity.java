@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-        // TODO: fix the # Find active feature toggles in the backend
+
 
 
         // Example usage of get all features
@@ -109,6 +109,27 @@ public class MainActivity extends AppCompatActivity {
 //                } else {
 //                    // Handle error case
 //                    Log.e("FeatureToggle", "Failed to retrieve feature");
+//                }
+//            }
+//        });
+
+
+        // Example usage getting features by date
+//        FeatureToggle.getFeaturesByDate(this, "2024-01-26", new FeatureToggle.Callback_Data<List<Feature>>() {
+//            @Override
+//            public void data(List<Feature> features) {
+//                if (features != null) {
+//                    // Successfully retrieved features
+//                    Log.d("FeatureToggle", "Found " + features.size() + " active features for date");
+//
+//                    for (Feature feature : features) {
+//                        Log.d("FeatureToggle", "Feature: " + feature.getName());
+//                        Log.d("FeatureToggle", "  Active from: " + feature.getBeginning_date());
+//                        Log.d("FeatureToggle", "  Until: " + feature.getExpiration_date());
+//                    }
+//                } else {
+//                    // Handle error case
+//                    Log.e("FeatureToggle", "Failed to retrieve features for date");
 //                }
 //            }
 //        });

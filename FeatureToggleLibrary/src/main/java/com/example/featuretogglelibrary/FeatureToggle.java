@@ -5,8 +5,10 @@ import android.content.Context;
 import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
 import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
+import com.example.featuretogglelibrary.callbacks.Callback_UpdateFeature;
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.Feature;
+import com.example.featuretogglelibrary.model.UpdateFeatureRequest;
 
 import java.util.List;
 
@@ -130,6 +132,37 @@ public class FeatureToggle {
 
                     @Override
                     public void fail(String message) {
+                        callback.data(null);
+                    }
+                });
+    }
+
+
+    public static void updateFeatureDates(Context context, String featureId,
+                                          String beginningDate, String expirationDate,
+                                          Callback_Data<String> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        // We only create the request if at least one date is provided
+        UpdateFeatureRequest request = new UpdateFeatureRequest(
+                beginningDate,
+                expirationDate
+        );
+
+        featureController.updateFeatureDates(
+                context.getPackageName(),
+                featureId,
+                request,
+                new Callback_UpdateFeature() {
+                    @Override
+                    public void onSuccess(String message) {
+                        callback.data(message);
+                    }
+
+                    @Override
+                    public void onError(String message) {
                         callback.data(null);
                     }
                 });

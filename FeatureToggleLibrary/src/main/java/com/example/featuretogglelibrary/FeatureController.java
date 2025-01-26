@@ -3,9 +3,12 @@ package com.example.featuretogglelibrary;
 import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
 import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
+import com.example.featuretogglelibrary.callbacks.Callback_UpdateFeature;
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.CreateFeatureResponse;
 import com.example.featuretogglelibrary.model.Feature;
+import com.example.featuretogglelibrary.model.UpdateFeatureRequest;
+import com.example.featuretogglelibrary.model.UpdateFeatureResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,6 +26,7 @@ public class FeatureController {
     private Callback_Features callbackFeatures;
     private Callback_CreateFeature createFeatureCallback;
     private Callback_SingleFeature singleFeatureCallback;
+    private Callback_UpdateFeature updateFeatureCallback;
 
     public void setCallbackFeatures(Callback_Features callbackFeatures) {
         this.callbackFeatures = callbackFeatures;
@@ -34,6 +38,10 @@ public class FeatureController {
 
     public void setSingleFeatureCallback(Callback_SingleFeature callback) {
         this.singleFeatureCallback = callback;
+    }
+
+    public void setUpdateFeatureCallback(Callback_UpdateFeature callback) {
+        this.updateFeatureCallback = callback;
     }
 
     private FeatureAPI getAPI(){
@@ -145,6 +153,39 @@ public class FeatureController {
         } catch (Exception e) {
             callbackFeatures.fail("Error processing date: " + e.getMessage());
         }
+    }
+
+
+    public void updateFeatureDates(String packageName, String featureId,
+                                   UpdateFeatureRequest request,
+                                   Callback_UpdateFeature callback) {
+        setUpdateFeatureCallback(callback);
+        Call<UpdateFeatureResponse> call = getAPI().updateFeatureDates(packageName, featureId, request);
+
+        call.enqueue(new Callback<UpdateFeatureResponse>() {
+            @Override
+            public void onResponse(Call<UpdateFeatureResponse> call,
+                                   Response<UpdateFeatureResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    updateFeatureCallback.onSuccess(response.body().getMessage());
+                } else {
+                    String errorMessage = "Failed to update feature: ";
+                    if (response.code() == 400) {
+                        errorMessage += "Invalid date format or date logic";
+                    } else if (response.code() == 404) {
+                        errorMessage += "Feature not found";
+                    } else {
+                        errorMessage += "Server error " + response.code();
+                    }
+                    updateFeatureCallback.onError(errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateFeatureResponse> call, Throwable t) {
+                updateFeatureCallback.onError("Network error: " + t.getMessage());
+            }
+        });
     }
 
 
