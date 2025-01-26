@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeatureController {
-    private static final String BASE_URL = "feature-toggle-library-beckend.vercel.app";
+    private static final String BASE_URL = "https://feature-toggle-library-beckend.vercel.app/";
     private Callback_Features callbackFeatures;
 
     public void setCallbackFeatures(Callback_Features callbackFeatures) {
