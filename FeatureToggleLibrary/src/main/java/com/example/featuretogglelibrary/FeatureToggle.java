@@ -3,6 +3,7 @@ package com.example.featuretogglelibrary;
 import android.content.Context;
 
 import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
+import com.example.featuretogglelibrary.callbacks.Callback_DeleteFeatures;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
 import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_UpdateFeature;
@@ -167,6 +168,30 @@ public class FeatureToggle {
                     }
                 });
     }
+
+
+    public static void deleteAllFeatures(Context context, Callback_Data<String> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        featureController.deleteAllFeatures(
+                context.getPackageName(),
+                new Callback_DeleteFeatures() {
+                    @Override
+                    public void onSuccess(String message) {
+                        callback.data(message);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        callback.data(null);
+                    }
+                });
+    }
+
+
+
 
 
 }

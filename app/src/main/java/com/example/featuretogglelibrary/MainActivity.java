@@ -135,5 +135,30 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
+        // Example usage updating feature dates
+//        String featureId = "28f74d26-5c0a-44a1-a31c-98e4990b0b18";
+//        String newBeginningDate = "2024-01-26 00:00:00";
+//        String newExpirationDate = "2024-12-31 23:59:59";
+//
+//        FeatureToggle.updateFeatureDates(
+//                this,
+//                featureId,
+//                newBeginningDate,
+//                newExpirationDate,
+//                new FeatureToggle.Callback_Data<String>() {
+//                    @Override
+//                    public void data(String result) {
+//                        if (result != null) {
+//                            // Update successful
+//                            Log.d("FeatureToggle", "Feature updated: " + result);
+//                        } else {
+//                            // Update failed
+//                            Log.e("FeatureToggle", "Failed to update feature");
+//                        }
+//                    }
+//                }
+//        );
+
+
     }
 }

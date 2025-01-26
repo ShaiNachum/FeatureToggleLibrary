@@ -2,6 +2,7 @@ package com.example.featuretogglelibrary;
 
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.CreateFeatureResponse;
+import com.example.featuretogglelibrary.model.DeleteFeatureResponse;
 import com.example.featuretogglelibrary.model.Feature;
 import com.example.featuretogglelibrary.model.UpdateFeatureRequest;
 import com.example.featuretogglelibrary.model.UpdateFeatureResponse;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -59,6 +61,13 @@ public interface FeatureAPI {
             @Path(value = "package_name", encoded = true) String package_name,
             @Path(value = "feature_id", encoded = true) String feature_id,
             @Body UpdateFeatureRequest request
+    );
+
+
+    // endpoint for deleting all features for a package
+    @DELETE("/feature-toggles/{package_name}")
+    Call<DeleteFeatureResponse> deleteAllFeatures(
+            @Path(value = "package_name", encoded = true) String package_name
     );
 
 
