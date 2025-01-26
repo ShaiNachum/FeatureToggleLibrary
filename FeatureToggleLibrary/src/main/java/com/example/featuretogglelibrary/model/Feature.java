@@ -13,6 +13,7 @@ public class Feature {
     public Feature() {
     }
 
+
     public Feature(String beginning_date, String created_at, String description, String expiration_date, String name, String updated_at) {
         this.beginning_date = beginning_date;
         this.created_at = created_at;
