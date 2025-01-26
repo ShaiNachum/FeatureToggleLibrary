@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppCompatImageView main_IMG_background = findViewById(R.id.main_IMG_background);
+
 
 
 
