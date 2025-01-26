@@ -64,4 +64,26 @@ public class FeatureToggle {
             }
         });
     }
+
+
+    public static void getAllFeatures(Context context, Callback_Data<List<Feature>> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        featureController.fetchAllFeatures(
+                context.getPackageName(),
+                new Callback_Features() {
+                    @Override
+                    public void ready(List<Feature> features) {
+                        callback.data(features);
+                    }
+
+                    @Override
+                    public void fail(String message) {
+                        // Return null to indicate failure
+                        callback.data(null);
+                    }
+                });
+    }
 }

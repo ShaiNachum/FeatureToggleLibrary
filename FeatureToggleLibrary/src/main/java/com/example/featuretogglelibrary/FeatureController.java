@@ -86,4 +86,16 @@ public class FeatureController {
         });
     }
 
+
+    public void fetchAllFeatures(String packageName, Callback_Features callbackFeatures) {
+        // We can reuse the existing callback since it handles the same type of response
+        setCallbackFeatures(callbackFeatures);
+
+        // Make the API call to get all features
+        Call<List<Feature>> call = getAPI().getAllFeatures(packageName);
+        call.enqueue(listCallback);
+    }
+
+
+
 }
