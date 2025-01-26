@@ -2,7 +2,9 @@ package com.example.featuretogglelibrary;
 
 import android.content.Context;
 
+import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
+import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.Feature;
 
 import java.util.List;
@@ -33,5 +35,33 @@ public class FeatureToggle {
 
                             }
                         });
+    }
+
+    public static void createFeature(Context context, String name, String description,
+                                     String beginningDate, String expirationDate,
+                                     Callback_Data<String> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        CreateFeatureRequest request = new CreateFeatureRequest(
+                context.getPackageName(),
+                name,
+                description,
+                beginningDate,
+                expirationDate
+        );
+
+        featureController.createFeature(request, new Callback_CreateFeature() {
+            @Override
+            public void onSuccess(String featureId) {
+                callback.data(featureId);
+            }
+
+            @Override
+            public void onError(String message) {
+                callback.data(null);
+            }
+        });
     }
 }
