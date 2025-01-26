@@ -13,18 +13,33 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface FeatureAPI {
+
+    // endpoint for creating a feature
+    @POST("/feature-toggle")
+    Call<CreateFeatureResponse> createFeature(@Body CreateFeatureRequest request);
+
+
+    // endpoint for getting all features for a package
+    @GET("/feature-toggles/{package_name}")
+    Call<List<Feature>> getAllFeatures(
+            @Path(value = "package_name", encoded = true) String package_name
+    );
+
+
+    // endpoint for getting a single feature by id for a package
+    @GET("/feature-toggle/{package_name}/{feature_id}")
+    Call<Feature> getFeatureById(
+            @Path(value = "package_name", encoded = true) String package_name,
+            @Path(value = "feature_id", encoded = true) String feature_id
+    );
+
+
+    // endpoint for getting all active features for a package
     @GET("/feature-toggles/{package_name}/active")
     Call<List<Feature>> loadActiveFeatures(
             @Path(value = "package_name", encoded = true) String package_name
     );
 
-    // New endpoint for creating a feature
-    @POST("/feature-toggle")
-    Call<CreateFeatureResponse> createFeature(@Body CreateFeatureRequest request);
 
-    // New endpoint for getting all features for a package
-    @GET("/feature-toggles/{package_name}")
-    Call<List<Feature>> getAllFeatures(
-            @Path(value = "package_name", encoded = true) String package_name
-    );
+
 }

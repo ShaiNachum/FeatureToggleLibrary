@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
+import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.Feature;
 
@@ -36,6 +37,7 @@ public class FeatureToggle {
                             }
                         });
     }
+
 
     public static void createFeature(Context context, String name, String description,
                                      String beginningDate, String expirationDate,
@@ -86,4 +88,31 @@ public class FeatureToggle {
                     }
                 });
     }
+
+
+    public static void getFeatureById(Context context, String featureId,
+                                      Callback_Data<Feature> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        featureController.fetchFeatureById(
+                context.getPackageName(),
+                featureId,
+                new Callback_SingleFeature() {
+                    @Override
+                    public void ready(Feature feature) {
+                        callback.data(feature);
+                    }
+
+                    @Override
+                    public void fail(String message) {
+                        callback.data(null);
+                    }
+                });
+    }
+
+
+
+
 }

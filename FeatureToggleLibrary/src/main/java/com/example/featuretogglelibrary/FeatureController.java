@@ -2,6 +2,7 @@ package com.example.featuretogglelibrary;
 
 import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
+import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.CreateFeatureResponse;
 import com.example.featuretogglelibrary.model.Feature;
@@ -21,6 +22,7 @@ public class FeatureController {
 
     private Callback_Features callbackFeatures;
     private Callback_CreateFeature createFeatureCallback;
+    private Callback_SingleFeature singleFeatureCallback;
 
     public void setCallbackFeatures(Callback_Features callbackFeatures) {
         this.callbackFeatures = callbackFeatures;
@@ -28,6 +30,10 @@ public class FeatureController {
 
     public void setCreateFeatureCallback(Callback_CreateFeature callback) {
         this.createFeatureCallback = callback;
+    }
+
+    public void setSingleFeatureCallback(Callback_SingleFeature callback) {
+        this.singleFeatureCallback = callback;
     }
 
     private FeatureAPI getAPI(){
@@ -94,6 +100,29 @@ public class FeatureController {
         // Make the API call to get all features
         Call<List<Feature>> call = getAPI().getAllFeatures(packageName);
         call.enqueue(listCallback);
+    }
+
+
+    public void fetchFeatureById(String packageName, String featureId, Callback_SingleFeature callback) {
+        setSingleFeatureCallback(callback);
+        Call<Feature> call = getAPI().getFeatureById(packageName, featureId);
+
+        call.enqueue(new Callback<Feature>() {
+            @Override
+            public void onResponse(Call<Feature> call, Response<Feature> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    singleFeatureCallback.ready(response.body());
+                } else {
+                    singleFeatureCallback.fail("Feature not found or server error: " +
+                            response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Feature> call, Throwable t) {
+                singleFeatureCallback.fail(t.getMessage());
+            }
+        });
     }
 
 
