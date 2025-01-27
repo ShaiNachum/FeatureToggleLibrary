@@ -2,15 +2,11 @@ package com.example.featuretogglelibrary;
 
 import android.os.Bundle;
 import android.util.Log;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-
-
 import com.example.featuretogglelibrary.model.Feature;
-
 import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -175,6 +171,33 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+
+
+
+
+        // Example usage of updating feature name
+//        String featureId = "66bef6dd-ebbf-482f-851a-edb4dc40a8ae";
+//        String newName = "Updated Feature Name";
+//
+//        FeatureToggle.updateFeatureName(
+//                this,
+//                featureId,
+//                newName,
+//                new FeatureToggle.Callback_Data<String>() {
+//                    @Override
+//                    public void data(String result) {
+//                        if (result != null) {
+//                            // Name update was successful
+//                            Log.d("FeatureToggle", "Feature name updated: " + result);
+//
+//                        } else {
+//                            // Update failed
+//                            Log.e("FeatureToggle", "Failed to update feature name");
+//
+//                        }
+//                    }
+//                }
+//        );
 
 
     }

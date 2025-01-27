@@ -1,6 +1,7 @@
 package com.example.featuretogglelibrary;
 
 import com.example.featuretogglelibrary.callbacks.Callback_CreateFeature;
+import com.example.featuretogglelibrary.callbacks.Callback_DeleteFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_DeleteFeatures;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
 import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
@@ -33,6 +34,7 @@ public class FeatureController {
     private Callback_UpdateFeature updateFeatureCallback;
     private Callback_DeleteFeatures deleteFeatureCallback;
     private Callback_UpdateName updateNameCallback;
+    private Callback_DeleteFeature deleteOneFeatureCallback;
 
     public void setCallbackFeatures(Callback_Features callbackFeatures) {
         this.callbackFeatures = callbackFeatures;
@@ -56,6 +58,10 @@ public class FeatureController {
 
     public void setUpdateNameCallback(Callback_UpdateName callback) {
         this.updateNameCallback = callback;
+    }
+
+    public void setDeleteFeatureCallback(Callback_DeleteFeature callback) {
+        this.deleteOneFeatureCallback = callback;
     }
 
     private FeatureAPI getAPI(){
@@ -283,4 +289,44 @@ public class FeatureController {
         });
     }
 
+
+
+    public void deleteFeature(String packageName, String featureId,
+                              Callback_DeleteFeature callback) {
+        setDeleteFeatureCallback(callback);
+
+        // Create and execute the API call
+        Call<DeleteFeatureResponse> call = getAPI().deleteFeature(packageName, featureId);
+
+        call.enqueue(new Callback<DeleteFeatureResponse>() {
+            @Override
+            public void onResponse(Call<DeleteFeatureResponse> call,
+                                   Response<DeleteFeatureResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Deletion was successful
+                    deleteOneFeatureCallback.onSuccess(response.body().getMessage());
+                } else {
+                    // Handle different error cases with specific messages
+                    String errorMessage;
+                    switch (response.code()) {
+                        case 404:
+                            errorMessage = "Feature or package not found";
+                            break;
+                        case 500:
+                            errorMessage = "Server error occurred";
+                            break;
+                        default:
+                            errorMessage = "Failed to delete feature: " + response.code();
+                    }
+                    deleteOneFeatureCallback.onError(errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteFeatureResponse> call, Throwable t) {
+                // Handle network or other errors
+                deleteOneFeatureCallback.onError("Network error: " + t.getMessage());
+            }
+        });
+    }
 }

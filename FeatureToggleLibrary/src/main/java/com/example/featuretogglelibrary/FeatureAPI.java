@@ -81,5 +81,13 @@ public interface FeatureAPI {
     );
 
 
+    // endpoint for deleting a single feature for a package and feature id
+    @DELETE("/feature-toggle/{package_name}/{feature_id}")
+    Call<DeleteFeatureResponse> deleteFeature(
+            @Path(value = "package_name", encoded = true) String package_name,
+            @Path(value = "feature_id", encoded = true) String feature_id
+    );
+
+
 
 }
