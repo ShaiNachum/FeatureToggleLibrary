@@ -7,6 +7,7 @@ import com.example.featuretogglelibrary.callbacks.Callback_DeleteFeatures;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
 import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_UpdateFeature;
+import com.example.featuretogglelibrary.callbacks.Callback_UpdateName;
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.Feature;
 import com.example.featuretogglelibrary.model.UpdateFeatureRequest;
@@ -178,6 +179,36 @@ public class FeatureToggle {
         featureController.deleteAllFeatures(
                 context.getPackageName(),
                 new Callback_DeleteFeatures() {
+                    @Override
+                    public void onSuccess(String message) {
+                        callback.data(message);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        callback.data(null);
+                    }
+                });
+    }
+
+
+    public static void updateFeatureName(Context context, String featureId,
+                                         String newName, Callback_Data<String> callback) {
+        if (callback == null) {
+            return;
+        }
+
+        // Validate input
+        if (newName == null || newName.trim().isEmpty()) {
+            callback.data(null);
+            return;
+        }
+
+        featureController.updateFeatureName(
+                context.getPackageName(),
+                featureId,
+                newName.trim(),
+                new Callback_UpdateName() {
                     @Override
                     public void onSuccess(String message) {
                         callback.data(message);

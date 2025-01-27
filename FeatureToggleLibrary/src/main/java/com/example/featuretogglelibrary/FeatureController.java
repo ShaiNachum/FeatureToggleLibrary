@@ -5,12 +5,14 @@ import com.example.featuretogglelibrary.callbacks.Callback_DeleteFeatures;
 import com.example.featuretogglelibrary.callbacks.Callback_Features;
 import com.example.featuretogglelibrary.callbacks.Callback_SingleFeature;
 import com.example.featuretogglelibrary.callbacks.Callback_UpdateFeature;
+import com.example.featuretogglelibrary.callbacks.Callback_UpdateName;
 import com.example.featuretogglelibrary.model.CreateFeatureRequest;
 import com.example.featuretogglelibrary.model.CreateFeatureResponse;
 import com.example.featuretogglelibrary.model.DeleteFeatureResponse;
 import com.example.featuretogglelibrary.model.Feature;
 import com.example.featuretogglelibrary.model.UpdateFeatureRequest;
 import com.example.featuretogglelibrary.model.UpdateFeatureResponse;
+import com.example.featuretogglelibrary.model.UpdateNameRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,6 +32,7 @@ public class FeatureController {
     private Callback_SingleFeature singleFeatureCallback;
     private Callback_UpdateFeature updateFeatureCallback;
     private Callback_DeleteFeatures deleteFeatureCallback;
+    private Callback_UpdateName updateNameCallback;
 
     public void setCallbackFeatures(Callback_Features callbackFeatures) {
         this.callbackFeatures = callbackFeatures;
@@ -49,6 +52,10 @@ public class FeatureController {
 
     public void setDeleteFeatureCallback(Callback_DeleteFeatures callback) {
         this.deleteFeatureCallback = callback;
+    }
+
+    public void setUpdateNameCallback(Callback_UpdateName callback) {
+        this.updateNameCallback = callback;
     }
 
     private FeatureAPI getAPI(){
@@ -227,6 +234,51 @@ public class FeatureController {
             public void onFailure(Call<DeleteFeatureResponse> call, Throwable t) {
                 // Handle network or other errors
                 deleteFeatureCallback.onError("Network error: " + t.getMessage());
+            }
+        });
+    }
+
+
+    public void updateFeatureName(String packageName, String featureId,
+                                  String newName, Callback_UpdateName callback) {
+        setUpdateNameCallback(callback);
+
+        // Create the request object
+        UpdateNameRequest request = new UpdateNameRequest(newName);
+
+        // Make the API call
+        Call<UpdateFeatureResponse> call = getAPI().updateFeatureName(packageName, featureId, request);
+
+        call.enqueue(new Callback<UpdateFeatureResponse>() {
+            @Override
+            public void onResponse(Call<UpdateFeatureResponse> call,
+                                   Response<UpdateFeatureResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Update was successful
+                    updateNameCallback.onSuccess(response.body().getMessage());
+                } else {
+                    // Handle different error cases
+                    String errorMessage;
+                    switch (response.code()) {
+                        case 400:
+                            errorMessage = "Invalid name provided";
+                            break;
+                        case 404:
+                            errorMessage = "Feature not found";
+                            break;
+                        case 500:
+                            errorMessage = "Server error occurred";
+                            break;
+                        default:
+                            errorMessage = "Failed to update name: " + response.code();
+                    }
+                    updateNameCallback.onError(errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateFeatureResponse> call, Throwable t) {
+                updateNameCallback.onError("Network error: " + t.getMessage());
             }
         });
     }

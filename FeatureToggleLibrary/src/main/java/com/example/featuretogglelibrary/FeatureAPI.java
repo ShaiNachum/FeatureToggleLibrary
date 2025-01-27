@@ -6,6 +6,7 @@ import com.example.featuretogglelibrary.model.DeleteFeatureResponse;
 import com.example.featuretogglelibrary.model.Feature;
 import com.example.featuretogglelibrary.model.UpdateFeatureRequest;
 import com.example.featuretogglelibrary.model.UpdateFeatureResponse;
+import com.example.featuretogglelibrary.model.UpdateNameRequest;
 
 import java.util.List;
 
@@ -68,6 +69,15 @@ public interface FeatureAPI {
     @DELETE("/feature-toggles/{package_name}")
     Call<DeleteFeatureResponse> deleteAllFeatures(
             @Path(value = "package_name", encoded = true) String package_name
+    );
+
+
+    // endpoint for updating feature name for a package and feature id
+    @PUT("/feature-toggle/{package_name}/{feature_id}/update-name")
+    Call<UpdateFeatureResponse> updateFeatureName(
+            @Path(value = "package_name", encoded = true) String package_name,
+            @Path(value = "feature_id", encoded = true) String feature_id,
+            @Body UpdateNameRequest request
     );
 
 

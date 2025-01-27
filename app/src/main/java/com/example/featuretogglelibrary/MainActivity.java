@@ -160,5 +160,22 @@ public class MainActivity extends AppCompatActivity {
 //        );
 
 
+        // Example usage of deleting all features
+//        FeatureToggle.deleteAllFeatures(this, new FeatureToggle.Callback_Data<String>() {
+//            @Override
+//            public void data(String result) {
+//                if (result != null) {
+//                    // Features were successfully deleted
+//                    Log.d("FeatureToggle", "All features deleted: " + result);
+//
+//                } else {
+//                    // Delete operation failed
+//                    Log.e("FeatureToggle", "Failed to delete features");
+//
+//                }
+//            }
+//        });
+
+
     }
 }
