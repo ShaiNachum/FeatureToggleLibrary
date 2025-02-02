@@ -25,7 +25,7 @@ allprojects {
 Add dependency to your app's `build.gradle`:
 ```gradle
 dependencies {
-    implementation ("com.github.YourUsername:FeatureToggleLibrary:1.0.0")
+    implementation ("com.github.YourUsername:FeatureToggleLibrary:1.0.13")
 }
 ```
 
